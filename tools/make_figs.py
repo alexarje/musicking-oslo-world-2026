@@ -13,9 +13,11 @@ import math
 from itertools import combinations
 from pathlib import Path
 
-INK = "#231f20"
+from palette import INK, SKY, CORAL, SUN, MINT
+
 GREY, PALE = "#b8b8c0", "#eeeef2"
-GREEN, PURPLE, BLUE, PINK = "#b3e297", "#9a90cf", "#a5cbed", "#efadb2"
+# The school deck's colour names, now drawn in the sunrise palette (tools/palette.py).
+GREEN, PURPLE, BLUE, PINK = SUN, MINT, SKY, CORAL
 FD = "font-family:'Roboto Condensed',Arial,sans-serif;font-weight:700"
 FB = "font-family:Inter,Arial,sans-serif"
 OUT = Path("images")

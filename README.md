@@ -1,4 +1,4 @@
-# Musicking in 2026: the reveal.js deck
+# Musicking Technology: the reveal.js deck
 
 English deck for Oslo World, Trekanten, 31 October 2026, in the MishMash style of the school deck of
 30 October (`../../../2026-10-30-Musikk i skolen/presentation/`). Open `index.html` in a browser;
@@ -9,6 +9,7 @@ it works offline. S opens the speaker notes. Online at https://alexarje.github.i
 - `tools/make_figs.py` draws every figure as stacked SVG layers: the musicking quadrant and its
   overlays (axes, links between all four corners, AI and technology in the middle),
   product and process, 4E cognition and embodied and social.
+- `tools/palette.py` holds the sunrise palette (light fills for figures and page styles, strong colours for the section openers); `assemble.py` maps the inherited MishMash colours to it.
 - `tools/make_qr.py` writes the QR code to the open-access book at MIT Press.
 - `tools/build_pdf.py` rebuilds the PDF (it writes to the first *.pdf in the folder);
   `tools/notes_sheet.py` writes `../notes.md`.
