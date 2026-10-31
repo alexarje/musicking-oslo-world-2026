@@ -213,20 +213,29 @@ def sperson(x, y, fill):
             f'<rect x="{ph[0] - 22}" y="{ph[1] - 40}" width="44" height="80" rx="8" fill="#ffffff" stroke="{INK}" stroke-width="5"/>')
 
 
+DOTS = f'fill="none" stroke="{INK}" stroke-width="7" stroke-linecap="round" stroke-dasharray="0.1 16"'
+
+
 def arc(a, b):
+    """Dotted arc over the top between two phones."""
     (x1, y1), (x2, y2) = phone_at(*a), phone_at(*b)
     lift = 0.22 * abs(x2 - x1)
-    return (f'<path d="M{x1} {y1 - 45} Q{(x1 + x2) / 2:.0f} {y1 - 45 - 2 * lift:.0f} {x2} {y2 - 45}" fill="none" '
-            f'stroke="{INK}" stroke-width="4" stroke-dasharray="14 12"/>')
+    return f'<path d="M{x1} {y1 - 45} Q{(x1 + x2) / 2:.0f} {y1 - 45 - 2 * lift:.0f} {x2} {y2 - 45}" {DOTS}/>'
+
+
+def under(a, b):
+    """Dotted arc underneath between two people's feet."""
+    (x1, y1), (x2, y2) = a, b
+    drop = 0.13 * abs(x2 - x1)
+    return f'<path d="M{x1} {y1 + 325} Q{(x1 + x2) / 2:.0f} {y1 + 325 + 2 * drop:.0f} {x2} {y2 + 325}" {DOTS}/>'
 
 
 x0, y0 = PEOPLE[0]
-p0 = phone_at(x0, y0)
-one = (sperson(x0, y0, FS[0]) + f'<line x1="{p0[0] + 50}" y1="{p0[1] - 70}" x2="{p0[0] + 50}" y2="{p0[1] + 70}" '
-       f'stroke="{INK}" stroke-width="10" marker-start="url(#a)" marker-end="url(#a)"/>' + text(960, 860, "Embodied", 60))
+one = sperson(x0, y0, FS[0]) + text(960, 975, "Embodied", 60)
 many = "".join(sperson(x, y, f) for (x, y), f in zip(PEOPLE[1:], FS[1:]))
-links = "".join(arc(a, b) for a, b in combinations(PEOPLE, 2)) + text(960, 935, "and social", 60)
+links = ("".join(arc(a, b) + under(a, b) for a, b in combinations(PEOPLE, 2))
+         + text(960, 1045, "and social", 60))
 for i, body in enumerate(["", one, many, links]):
-    write(f"fig-social-{i}.svg", body, (1920, 960))
+    write(f"fig-social-{i}.svg", body, (1920, 1090))
 
 print("wrote images/fig-q-*.svg, fig-process-0..6.svg, fig-4e-0..6.svg and fig-social-0..3.svg")
